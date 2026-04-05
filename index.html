@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homeless Go Home — Spectacle</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-weight: 300;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: #fff; text-decoration: none; text-underline-offset: 4px; }
+        a:hover { text-decoration: underline; }
+
+        /* Language switcher */
+        .lang-switch {
+            position: fixed;
+            top: 24px;
+            right: 24px;
+            z-index: 200;
+            display: flex;
+            gap: 16px;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .lang-switch button {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.35);
+            font-family: inherit;
+            font-size: 13px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: color 0.3s;
+            padding: 4px 0;
+        }
+
+        .lang-switch button:hover { color: rgba(255,255,255,0.7); }
+        .lang-switch button.active {
+            color: #fff;
+            border-bottom: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .nav {
+            padding: 24px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .nav a {
+            font-size: 14px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* Language visibility */
+        [data-lang] { display: none; }
+        [data-lang].active { display: block; }
+        span[data-lang].active { display: inline; }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 24px;
+            padding-bottom: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            z-index: 0;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center 30%;
+            opacity: 0.12;
+            filter: invert(1) contrast(1.3);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top, #000 5%, transparent 40%, transparent 60%, rgba(0,0,0,0.6) 100%);
+            z-index: 1;
+        }
+
+        .hero-title {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title h1 {
+            font-size: clamp(48px, 10vw, 120px);
+            font-weight: 300;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin-bottom: 24px;
+        }
+
+        .hero-title h1 em {
+            display: block;
+            font-style: italic;
+            font-size: 0.45em;
+            opacity: 0.5;
+            letter-spacing: 0.02em;
+            font-weight: 300;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(14px, 2vw, 18px);
+            opacity: 0.6;
+            max-width: 500px;
+            letter-spacing: 0.02em;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            z-index: 2;
+            font-size: 12px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            writing-mode: vertical-rl;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Sections */
+        .section {
+            padding: 120px 24px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            font-size: clamp(28px, 5vw, 48px);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: 32px;
+        }
+
+        .section p {
+            font-size: 16px;
+            opacity: 0.8;
+            margin-bottom: 20px;
+            max-width: 620px;
+        }
+
+        .divider {
+            width: 40px;
+            height: 1px;
+            background: rgba(255,255,255,0.2);
+            margin: 0 auto;
+        }
+
+        /* Sketch images */
+        .sketch-container {
+            margin: 60px 0;
+            position: relative;
+        }
+
+        .sketch-container img {
+            width: 100%;
+            max-width: 700px;
+            display: block;
+            filter: invert(1) contrast(1.1);
+            opacity: 0.85;
+            margin: 0 auto;
+        }
+
+        .sketch-caption {
+            font-size: 12px;
+            opacity: 0.3;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        /* Full bleed sketch */
+        .sketch-full {
+            width: 100%;
+            padding: 0;
+            margin: 80px 0;
+            overflow: hidden;
+        }
+
+        .sketch-full img {
+            width: 100%;
+            max-width: 1200px;
+            display: block;
+            margin: 0 auto;
+            filter: invert(1) contrast(1.15);
+            opacity: 0.7;
+        }
+
+        /* Sketch pair */
+        .sketch-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 60px auto;
+            max-width: 900px;
+            padding: 0 24px;
+        }
+
+        .sketch-pair img {
+            width: 100%;
+            filter: invert(1) contrast(1.1);
+            opacity: 0.8;
+        }
+
+        /* Team */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 48px;
+            margin-top: 48px;
+        }
+
+        .team-member {
+            border-left: 1px solid rgba(255,255,255,0.15);
+            padding-left: 20px;
+        }
+
+        .team-member .role {
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-bottom: 8px;
+        }
+
+        .team-member .name {
+            font-size: 20px;
+            font-weight: 400;
+        }
+
+        /* Acts */
+        .acts {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 80px;
+            margin-top: 48px;
+        }
+
+        .act {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 32px;
+        }
+
+        .act-number {
+            font-size: 11px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            margin-bottom: 16px;
+        }
+
+        .act h3 {
+            font-size: clamp(22px, 4vw, 32px);
+            font-weight: 300;
+            margin-bottom: 20px;
+            letter-spacing: -0.01em;
+        }
+
+        .act p {
+            font-size: 15px;
+            opacity: 0.7;
+            margin-bottom: 16px;
+            max-width: 580px;
+        }
+
+        .act .source {
+            font-size: 13px;
+            font-style: italic;
+            opacity: 0.4;
+            margin-top: 24px;
+        }
+
+        /* Characters */
+        .characters-list {
+            list-style: none;
+            margin-top: 32px;
+            columns: 2;
+            column-gap: 40px;
+        }
+
+        .characters-list li {
+            font-size: 15px;
+            opacity: 0.7;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            break-inside: avoid;
+        }
+
+        /* Scenes */
+        .scenes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .scene-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            padding: 24px;
+            transition: border-color 0.3s;
+        }
+
+        .scene-card:hover {
+            border-color: rgba(255,255,255,0.15);
+        }
+
+        .scene-card .scene-title {
+            font-size: 15px;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .scene-card .scene-desc {
+            font-size: 13px;
+            opacity: 0.5;
+            line-height: 1.5;
+        }
+
+        /* Quote */
+        .quote-section {
+            padding: 160px 24px;
+            text-align: center;
+        }
+
+        .quote-section blockquote {
+            font-size: clamp(20px, 4vw, 36px);
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.4;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+            letter-spacing: -0.01em;
+        }
+
+        .quote-section .quote-attr {
+            margin-top: 24px;
+            font-size: 13px;
+            opacity: 0.4;
+            letter-spacing: 0.05em;
+        }
+
+        /* Storyboard */
+        .storyboard-section {
+            padding: 80px 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .storyboard-section img {
+            width: 100%;
+            filter: invert(1) contrast(1.15);
+            opacity: 0.75;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 48px 24px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 900px;
+            margin: 0 auto;
+            font-size: 13px;
+            opacity: 0.4;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .section { padding: 80px 20px; }
+            .characters-list { columns: 1; }
+            .team-grid { grid-template-columns: 1fr; gap: 32px; }
+            .sketch-pair { grid-template-columns: 1fr; }
+            .footer {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+            .lang-switch { top: 20px; right: 20px; gap: 10px; }
+            .lang-switch button { font-size: 11px; }
+        }
+
+        html { scroll-behavior: smooth; }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="https://www.valentin-tszin.com">Back</a>
+    </nav>
+
+    <div class="lang-switch">
+        <button class="active" onclick="setLang('fr')">FR</button>
+        <button onclick="setLang('en')">EN</button>
+        <button onclick="setLang('ru')">RU</button>
+    </div>
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero">
+        <div class="hero-bg">
+            <img src="img/page-01.jpg" alt="Homeless Go Home">
+        </div>
+        <div class="hero-title">
+            <h1>
+                Homeless Go Home
+                <em>
+                    <span data-lang="fr" class="active">spectacle</span>
+                    <span data-lang="en">a spectacle</span>
+                    <span data-lang="ru">спектакль</span>
+                </em>
+            </h1>
+            <p class="hero-subtitle" data-lang="fr" class="active">Un spectacle en deux actes d'apres Emile Zola. Monaco.</p>
+            <p class="hero-subtitle" data-lang="en">A two-act spectacle after Emile Zola. Monaco.</p>
+            <p class="hero-subtitle" data-lang="ru">Спектакль в двух актах по мотивам Эмиля Золя. Монако.</p>
+        </div>
+        <div class="scroll-indicator">scroll</div>
+    </section>
+
+    <!-- ===================== ABOUT ===================== -->
+    <section class="section fade-in">
+        <div class="section-label">
+            <span data-lang="fr" class="active">Le projet</span>
+            <span data-lang="en">The project</span>
+            <span data-lang="ru">Проект</span>
+        </div>
+
+        <div data-lang="fr" class="active">
+            <h2>Le parasitisme, la tromperie et la degradation morale</h2>
+            <p>Quand j'envisage une piece de theatre basee sur l'oeuvre de Zola "La Curee", je trouve que son histoire est tres pertinente meme a notre epoque. La meme incrustation se trouve dans les bouilloires et se retrouve dans nos reins.</p>
+            <p>Je veux montrer comment les jeunes peuvent venir dans de grandes villes, comme Paris, et commencer a vivre aux depens des autres, en faineant et en trompant. C'est un probleme auquel de nombreux pays, y compris la France, sont confrontes.</p>
+            <p>Le sujet du parasitisme — je le ressens dans ma propre vie et je vois ou et comment je peux vivre aux depens des autres.</p>
+        </div>
+        <div data-lang="en">
+            <h2>Parasitism, deception and moral degradation</h2>
+            <p>When I envision a play based on Zola's "La Curee", I find its story remarkably relevant to our time. The same buildup found in kettles is found in our kidneys.</p>
+            <p>I want to show how young people can come to big cities like Paris and begin living at others' expense — through idleness and deception. This is a problem many countries face, France included.</p>
+            <p>The subject of parasitism — I feel it in my own life, and I see where and how one can live at the expense of others.</p>
+        </div>
+        <div data-lang="ru">
+            <h2>Паразитизм, обман и моральная деградация</h2>
+            <p>Когда я задумываю пьесу по произведению Золя «Добыча», я нахожу, что его история невероятно актуальна и в наше время. Та же накипь, что оседает в чайниках, оседает и в наших почках.</p>
+            <p>Я хочу показать, как молодые люди приезжают в большие города вроде Парижа и начинают жить за счёт других — бездельничая и обманывая. Это проблема, с которой сталкиваются многие страны, включая Францию.</p>
+            <p>Тема паразитизма — я ощущаю её в собственной жизни и вижу, где и как можно жить за чужой счёт.</p>
+        </div>
+    </section>
+
+    <!-- Sketch: concept drawing -->
+    <div class="sketch-container fade-in">
+        <img src="img/page-02.jpg" alt="Concept sketch — Comment les gens meurent">
+        <div class="sketch-caption">
+            <span data-lang="fr" class="active">Esquisse conceptuelle</span>
+            <span data-lang="en">Concept sketch</span>
+            <span data-lang="ru">Концептуальный эскиз</span>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ===================== TEAM ===================== -->
+    <section class="section fade-in">
+        <div class="section-label">
+            <span data-lang="fr" class="active">Equipe</span>
+            <span data-lang="en">Team</span>
+            <span data-lang="ru">Команда</span>
+        </div>
+
+        <div data-lang="fr" class="active"><h2>Createurs</h2></div>
+        <div data-lang="en"><h2>Creators</h2></div>
+        <div data-lang="ru"><h2>Создатели</h2></div>
+
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="role">
+                    <span data-lang="fr" class="active">Metteur en scene</span>
+                    <span data-lang="en">Director</span>
+                    <span data-lang="ru">Режиссёр</span>
+                </div>
+                <div class="name">Vasilii Berezin</div>
+            </div>
+            <div class="team-member">
+                <div class="role">
+                    <span data-lang="fr" class="active">Choregraphie</span>
+                    <span data-lang="en">Choreography</span>
+                    <span data-lang="ru">Хореография</span>
+                </div>
+                <div class="name">Valentina Tszin</div>
+            </div>
+            <div class="team-member">
+                <div class="role">
+                    <span data-lang="fr" class="active">Musique</span>
+                    <span data-lang="en">Music</span>
+                    <span data-lang="ru">Музыка</span>
+                </div>
+                <div class="name">Ilya Lagutenko</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ===================== ACTS ===================== -->
+    <section class="section fade-in">
+        <div class="section-label">
+            <span data-lang="fr" class="active">Structure</span>
+            <span data-lang="en">Structure</span>
+            <span data-lang="ru">Структура</span>
+        </div>
+
+        <div data-lang="fr" class="active"><h2>Deux actes</h2></div>
+        <div data-lang="en"><h2>Two acts</h2></div>
+        <div data-lang="ru"><h2>Два акта</h2></div>
+
+        <div class="acts">
+            <!-- ACT I -->
+            <div class="act">
+                <div class="act-number">
+                    <span data-lang="fr" class="active">Premier acte</span>
+                    <span data-lang="en">Act one</span>
+                    <span data-lang="ru">Первый акт</span>
+                </div>
+
+                <div data-lang="fr" class="active">
+                    <h3>Comment on meurt</h3>
+                    <p>Le premier acte commence par la mort d'un Francais ordinaire et honnete, et tout l'acte se deroule autour de sa mort. L'homme mourant et son entourage.</p>
+                    <p>Les discours ont ete prononces, les derniers mots d'adieu ont ete dits, les pretres ont beni le corps, et tous se sont disperses. Dans ce coin isole du monde, il ne restait plus que les fossoyeurs.</p>
+                    <div class="source">D'apres «Comment on meurt» d'Emile Zola</div>
+                </div>
+                <div data-lang="en">
+                    <h3>How people die</h3>
+                    <p>The first act begins with the death of an ordinary, honest Frenchman, and the entire act unfolds around his death. The dying man and his entourage.</p>
+                    <p>The speeches were delivered, the last words of farewell spoken, the priests blessed the body, and everyone dispersed. In this isolated corner of the world, only the gravediggers remained.</p>
+                    <div class="source">After "Comment on meurt" by Emile Zola</div>
+                </div>
+                <div data-lang="ru">
+                    <h3>Как умирают</h3>
+                    <p>Первый акт начинается со смерти обычного, честного француза, и всё действие разворачивается вокруг его смерти. Умирающий и его окружение.</p>
+                    <p>Речи были произнесены, последние слова прощания сказаны, священники благословили тело, и все разошлись. В этом забытом уголке мира остались лишь могильщики.</p>
+                    <div class="source">По мотивам «Как умирают» Эмиля Золя</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sketch: Act I — death scene & funeral -->
+    <div class="sketch-pair fade-in">
+        <img src="img/page-04.jpg" alt="Act I — the funeral">
+        <img src="img/page-05.jpg" alt="Act I — the broken door">
+    </div>
+
+    <section class="section fade-in">
+        <div class="acts">
+            <!-- ACT II -->
+            <div class="act">
+                <div class="act-number">
+                    <span data-lang="fr" class="active">Deuxieme acte</span>
+                    <span data-lang="en">Act two</span>
+                    <span data-lang="ru">Второй акт</span>
+                </div>
+
+                <div data-lang="fr" class="active">
+                    <h3>Mode d'emploi — comment tromper</h3>
+                    <p>L'action se deroule dans les memes elements que dans le premier acte. Les morts du premier acte revivent dans un monde de tromperie, de seduction et de parasitisme social.</p>
+                    <p>Scenes-instructions sur comment tromper: la location d'un logement, la rencontre avec une femme mariee, la scene a la table, la scene au lit. Les inserts documentaires sur comment vivre.</p>
+                    <div class="source">D'apres «Pot-Bouille» d'Emile Zola</div>
+                </div>
+                <div data-lang="en">
+                    <h3>Instructions — how to deceive</h3>
+                    <p>The action takes place within the same elements as the first act. The dead from Act One come back to life in a world of deception, seduction, and social parasitism.</p>
+                    <p>Instructional scenes on how to deceive: renting an apartment, the encounter with a married woman, the table scene, the bedroom scene. Documentary inserts on how to live.</p>
+                    <div class="source">After "Pot-Bouille" by Emile Zola</div>
+                </div>
+                <div data-lang="ru">
+                    <h3>Инструкция — как обманывать</h3>
+                    <p>Действие разворачивается в тех же декорациях, что и в первом акте. Мёртвые из первого акта оживают в мире обмана, соблазна и социального паразитизма.</p>
+                    <p>Сцены-инструкции о том, как обманывать: съём жилья, встреча с замужней женщиной, сцена за столом, сцена в постели. Документальные вставки о том, как жить.</p>
+                    <div class="source">По мотивам «Накипь» Эмиля Золя</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sketch: Act II — scenes of deception -->
+    <div class="sketch-pair fade-in">
+        <img src="img/page-06.jpg" alt="Scenes — renting, meeting">
+        <img src="img/page-07.jpg" alt="Scenes — table, bed">
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ===================== QUOTE ===================== -->
+    <section class="quote-section fade-in">
+        <blockquote>
+            <span data-lang="fr" class="active">Comment s'asseoir sur le cou de l'etat?</span>
+            <span data-lang="en">How to sit on the neck of the state?</span>
+            <span data-lang="ru">Как сесть на шею государству?</span>
+        </blockquote>
+        <div class="quote-attr">
+            <span data-lang="fr" class="active">— Question centrale du spectacle</span>
+            <span data-lang="en">— The central question of the spectacle</span>
+            <span data-lang="ru">— Центральный вопрос спектакля</span>
+        </div>
+    </section>
+
+    <!-- Sketch: sitting on the state's neck -->
+    <div class="sketch-container fade-in">
+        <img src="img/page-09.jpg" alt="Comment s'asseoir sur le cou de l'etat">
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ===================== CHARACTERS ===================== -->
+    <section class="section fade-in">
+        <div class="section-label">
+            <span data-lang="fr" class="active">Distribution</span>
+            <span data-lang="en">Cast</span>
+            <span data-lang="ru">Персонажи</span>
+        </div>
+
+        <div data-lang="fr" class="active">
+            <h2>Les personnages</h2>
+            <p>Tous ne sont pas francais, sauf un seul.</p>
+            <ul class="characters-list">
+                <li>Octave</li>
+                <li>Une fille</li>
+                <li>Une femme mariee et son mari</li>
+                <li>Des employes d'un cabinet d'avocats</li>
+                <li>Un facteur</li>
+                <li>Un sans-abri</li>
+                <li>Des musiciens</li>
+                <li>L'homme mourant et son entourage</li>
+            </ul>
+        </div>
+        <div data-lang="en">
+            <h2>The characters</h2>
+            <p>None of them are French — except one.</p>
+            <ul class="characters-list">
+                <li>Octave</li>
+                <li>A girl</li>
+                <li>A married woman and her husband</li>
+                <li>Law firm employees</li>
+                <li>A postman</li>
+                <li>A homeless man</li>
+                <li>Musicians</li>
+                <li>The dying man and his entourage</li>
+            </ul>
+        </div>
+        <div data-lang="ru">
+            <h2>Персонажи</h2>
+            <p>Все они не французы, кроме одного.</p>
+            <ul class="characters-list">
+                <li>Октав</li>
+                <li>Девушка</li>
+                <li>Замужняя женщина и её муж</li>
+                <li>Сотрудники адвокатской конторы</li>
+                <li>Почтальон</li>
+                <li>Бездомный</li>
+                <li>Музыканты</li>
+                <li>Умирающий и его окружение</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Sketch: documentary inserts -->
+    <div class="sketch-container fade-in">
+        <img src="img/page-08.jpg" alt="Les inserts documentaires">
+        <div class="sketch-caption">
+            <span data-lang="fr" class="active">Les inserts documentaires sur comment vivre</span>
+            <span data-lang="en">Documentary inserts on how to live</span>
+            <span data-lang="ru">Документальные вставки о том, как жить</span>
+        </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ===================== SCENES ===================== -->
+    <section class="section fade-in">
+        <div class="section-label">
+            <span data-lang="fr" class="active">Mise en scene</span>
+            <span data-lang="en">Staging</span>
+            <span data-lang="ru">Мизансцена</span>
+        </div>
+
+        <div data-lang="fr" class="active"><h2>Scenes</h2></div>
+        <div data-lang="en"><h2>Scenes</h2></div>
+        <div data-lang="ru"><h2>Сцены</h2></div>
+
+        <div class="scenes-grid">
+            <div class="scene-card">
+                <div class="scene-title">
+                    <span data-lang="fr" class="active">La mort</span>
+                    <span data-lang="en">Death</span>
+                    <span data-lang="ru">Смерть</span>
+                </div>
+                <div class="scene-desc">
+                    <span data-lang="fr" class="active">L'enterrement du comte de Vertheres. La comtesse, allongee sur le transat, les yeux fixes au plafond.</span>
+                    <span data-lang="en">The burial of Count de Vertheres. The countess, lying on the chaise longue, eyes fixed on the ceiling.</span>
+                    <span data-lang="ru">Похороны графа де Вертер. Графиня, лёжа на шезлонге, смотрит в потолок.</span>
+                </div>
+            </div>
+            <div class="scene-card">
+                <div class="scene-title">
+                    <span data-lang="fr" class="active">La porte brisee</span>
+                    <span data-lang="en">The broken door</span>
+                    <span data-lang="ru">Сломанная дверь</span>
+                </div>
+                <div class="scene-desc">
+                    <span data-lang="fr" class="active">La chambre s'ouvre et fait partie de l'action. Avec les portes fermees, des ombres sont projetees sur les murs.</span>
+                    <span data-lang="en">The room opens and becomes part of the action. With the doors closed, shadows are projected onto the walls.</span>
+                    <span data-lang="ru">Комната раскрывается и становится частью действия. С закрытыми дверями тени проецируются на стены.</span>
+                </div>
+            </div>
+            <div class="scene-card">
+                <div class="scene-title">
+                    <span data-lang="fr" class="active">La location</span>
+                    <span data-lang="en">The rental</span>
+                    <span data-lang="ru">Аренда жилья</span>
+                </div>
+                <div class="scene-desc">
+                    <span data-lang="fr" class="active">Instructions sur comment tromper. La scene de la location d'un logement.</span>
+                    <span data-lang="en">Instructions on how to deceive. The scene of renting an apartment.</span>
+                    <span data-lang="ru">Инструкции о том, как обманывать. Сцена аренды квартиры.</span>
+                </div>
+            </div>
+            <div class="scene-card">
+                <div class="scene-title">
+                    <span data-lang="fr" class="active">La rencontre</span>
+                    <span data-lang="en">The encounter</span>
+                    <span data-lang="ru">Встреча</span>
+                </div>
+                <div class="scene-desc">
+                    <span data-lang="fr" class="active">La rencontre avec une femme mariee. Marie souriait et rougissait.</span>
+                    <span data-lang="en">The encounter with a married woman. Marie smiled and blushed.</span>
+                    <span data-lang="ru">Встреча с замужней женщиной. Мари улыбалась и краснела.</span>
+                </div>
+            </div>
+            <div class="scene-card">
+                <div class="scene-title">
+                    <span data-lang="fr" class="active">A la table</span>
+                    <span data-lang="en">At the table</span>
+                    <span data-lang="ru">За столом</span>
+                </div>
+                <div class="scene-desc">
+                    <span data-lang="fr" class="active">Mari tres modeste dans son manteau de laine sombre raconte que son mari est rentre chez lui malade.</span>
+                    <span data-lang="en">A modest wife in her dark wool coat tells how her husband came home sick.</span>
+                    <span data-lang="ru">Скромная жена в тёмном шерстяном пальто рассказывает, что муж вернулся домой больным.</span>
+                </div>
+            </div>
+            <div class="scene-card">
+                <div class="scene-title">
+                    <span data-lang="fr" class="active">La musique</span>
+                    <span data-lang="en">The music</span>
+                    <span data-lang="ru">Музыка</span>
+                </div>
+                <div class="scene-desc">
+                    <span data-lang="fr" class="active">Cinquieme partie. Octave doit toucher ses cheveux avec ses levres.</span>
+                    <span data-lang="en">Fifth part. Octave must touch her hair with his lips.</span>
+                    <span data-lang="ru">Пятая часть. Октав должен коснуться её волос губами.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================== STAGE DESIGN ===================== -->
+
+    <!-- Sketch: stage design -->
+    <div class="sketch-pair fade-in">
+        <img src="img/page-10.jpg" alt="Stage design — perspective">
+        <img src="img/page-11.jpg" alt="Stage design — two levels">
+    </div>
+
+    <section class="section fade-in" style="padding-top: 40px;">
+        <div class="section-label">
+            <span data-lang="fr" class="active">Scenographie</span>
+            <span data-lang="en">Stage design</span>
+            <span data-lang="ru">Сценография</span>
+        </div>
+        <div data-lang="fr" class="active">
+            <p>L'espace scenique se deploie sur deux niveaux. La chambre s'ouvre et fait egalement partie de l'action — avec les portes fermees, des ombres sont projetees sur les murs. L'action circule entre l'interieur et l'exterieur, entre la vie privee et la facade sociale.</p>
+        </div>
+        <div data-lang="en">
+            <p>The stage unfolds across two levels. The room opens and becomes part of the action — with the doors closed, shadows are projected onto the walls. The action circulates between interior and exterior, between private life and social facade.</p>
+        </div>
+        <div data-lang="ru">
+            <p>Сценическое пространство разворачивается на двух уровнях. Комната раскрывается и становится частью действия — с закрытыми дверями тени проецируются на стены. Действие перемещается между интерьером и экстерьером, между частной жизнью и социальным фасадом.</p>
+        </div>
+    </section>
+
+    <!-- ===================== STORYBOARD ===================== -->
+    <section class="storyboard-section fade-in">
+        <div class="section-label" style="margin-bottom: 32px;">
+            <span data-lang="fr" class="active">Storyboard</span>
+            <span data-lang="en">Storyboard</span>
+            <span data-lang="ru">Раскадровка</span>
+        </div>
+        <img src="img/page-12.jpg" alt="Storyboard">
+    </section>
+
+    <!-- Sketch: final scene -->
+    <div class="sketch-container fade-in">
+        <img src="img/page-13.jpg" alt="Final scene — Fin">
+        <div class="sketch-caption">Fin</div>
+    </div>
+
+    <!-- ===================== FOOTER ===================== -->
+    <footer class="footer">
+        <span>Homeless Go Home — Monaco</span>
+        <span>Vasilii Berezin / Valentina Tszin / Ilya Lagutenko</span>
+    </footer>
+
+    <script>
+        // Intersection observer for fade-in
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Language switcher
+        function setLang(lang) {
+            // Update buttons
+            document.querySelectorAll('.lang-switch button').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent.toLowerCase() === lang);
+            });
+
+            // Update content
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                el.classList.toggle('active', el.dataset.lang === lang);
+            });
+        }
+    </script>
+
+</body>
+</html>

@@ -429,6 +429,94 @@
             .lang-switch button { font-size: 11px; }
         }
 
+        /* Partition (music cue sheet) */
+        .partition {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px 120px;
+        }
+
+        .partition-intro {
+            padding-bottom: 48px;
+        }
+
+        .act-divider {
+            font-size: 11px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            opacity: 0.35;
+            padding: 48px 0 24px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .cue {
+            padding: 32px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 32px;
+        }
+
+        .cue-meta {
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.4;
+            padding-top: 4px;
+        }
+
+        .cue-body h4 {
+            font-size: 18px;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            margin-bottom: 14px;
+        }
+
+        .cue-body blockquote {
+            font-size: 15px;
+            font-style: italic;
+            opacity: 0.65;
+            line-height: 1.55;
+            padding-left: 16px;
+            border-left: 1px solid rgba(255,255,255,0.15);
+            margin-bottom: 16px;
+            max-width: 580px;
+        }
+
+        .cue-tech {
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            opacity: 0.35;
+            font-variant-numeric: tabular-nums;
+            margin-bottom: 8px;
+        }
+
+        .cue-note {
+            font-size: 13px;
+            opacity: 0.55;
+            line-height: 1.55;
+            max-width: 580px;
+        }
+
+        .cue-silence .cue-tech { opacity: 0.25; }
+        .cue-silence .cue-body h4 { opacity: 0.55; }
+
+        .cue audio {
+            width: 100%;
+            max-width: 580px;
+            margin: 14px 0 4px;
+            height: 36px;
+            filter: invert(0.92) hue-rotate(180deg);
+            opacity: 0.75;
+        }
+        .cue audio::-webkit-media-controls-panel {
+            background-color: rgba(255,255,255,0.04);
+        }
+
+        @media (max-width: 600px) {
+            .cue { grid-template-columns: 1fr; gap: 12px; }
+        }
+
         html { scroll-behavior: smooth; }
 
         .fade-in {
@@ -820,6 +908,367 @@
             </div>
         </div>
     </section>
+
+    <!-- ===================== PARTITION (MUSIC CUE SHEET) ===================== -->
+    <section class="section fade-in" style="padding-bottom: 40px;">
+        <div class="section-label">
+            <span data-lang="fr" class="active">Partition</span>
+            <span data-lang="en">Score</span>
+            <span data-lang="ru">Партитура</span>
+        </div>
+
+        <div data-lang="fr" class="active">
+            <h2>Musique &mdash; Ilya Lagutenko</h2>
+            <p>Onze pi&egrave;ces instrumentales. La structure musicale est circulaire: le premier acte d&eacute;pose un corps, le deuxi&egrave;me acte emprunte sa voix. La th&egrave;me qui accompagne les fossoyeurs revient dans la sc&egrave;ne du parasitisme &mdash; m&ecirc;me mati&egrave;re, m&ecirc;me tonalit&eacute;, mais d&eacute;sormais fragment&eacute;e. Le sans-abri, seul Fran&ccedil;ais de la distribution, ne porte aucun th&egrave;me: il porte l&rsquo;absence d&rsquo;un th&egrave;me. Sa musique &mdash; la derni&egrave;re &mdash; arrive quand tous les autres se sont tus.</p>
+        </div>
+        <div data-lang="en">
+            <h2>Music &mdash; Ilya Lagutenko</h2>
+            <p>Eleven instrumental pieces. The musical structure is circular: Act One lays a body down, Act Two borrows its voice. The cue that accompanies the gravediggers returns in the scene of parasitism &mdash; same material, same key, but now fragmented. The homeless man, the only French character in the cast, carries no theme of his own: he carries the absence of one. His music &mdash; the last &mdash; arrives when every other voice has fallen silent.</p>
+        </div>
+        <div data-lang="ru">
+            <h2>Музыка &mdash; Илья Лагутенко</h2>
+            <p>Одиннадцать инструментальных пьес. Музыкальная структура замкнута в кольцо: первый акт опускает тело в землю, второй акт занимает у него голос. Тема, которая звучит у могильщиков, возвращается в сцене паразитизма &mdash; та же материя, та же тональность, но уже разорванная. Бездомный, единственный француз в составе, не носит своей темы: он носит её отсутствие. Его музыка &mdash; последняя &mdash; приходит, когда все остальные уже замолчали.</p>
+        </div>
+    </section>
+
+    <div class="partition fade-in">
+
+        <!-- ACT I HEADER -->
+        <div class="act-divider">
+            <span data-lang="fr" class="active">Premier acte &middot; Comment on meurt</span>
+            <span data-lang="en">Act One &middot; How People Die</span>
+            <span data-lang="ru">Первый акт &middot; Как умирают</span>
+        </div>
+
+        <!-- CUE I.1 -->
+        <div class="cue">
+            <div class="cue-meta">I.1</div>
+            <div class="cue-body">
+                <h4>
+                    <span data-lang="fr" class="active">La comtesse sur le transat &mdash; The Quiet Man</span>
+                    <span data-lang="en">The Countess on the Chaise Longue &mdash; The Quiet Man</span>
+                    <span data-lang="ru">Графиня на шезлонге &mdash; The Quiet Man</span>
+                </h4>
+                <blockquote>
+                    <span data-lang="fr" class="active">Allong&eacute;e sur le transat, dans la m&ecirc;me pose, les yeux fix&eacute;s au plafond, elle jouait avec le cordon de sa ceinture. Plong&eacute;e dans ses pens&eacute;es, peu &agrave; peu le visage de la charmante blonde se teintait de rose.</span>
+                    <span data-lang="en">She lay on the chaise longue in the same posture, eyes fixed on the ceiling, fingers toying with the cord of her belt. Lost in her thoughts, little by little the charming blonde&rsquo;s face flushed pink.</span>
+                    <span data-lang="ru">Графиня всё в той же позе лежала на шезлонге, устремив взгляд в потолок и играя кисточкой пояса. Погружённая в свои мысли, мало-помалу на лицо очаровательной блондинки проступал румянец.</span>
+                </blockquote>
+                <div class="cue-tech">Track 4 &middot; B minor &middot; 136 BPM &middot; 5:53</div>
+                <audio controls preload="none" src="audio/track-04.mp3"></audio>
+                <div class="cue-note">
+                    <span data-lang="fr" class="active">La veuve est immobile, mais ses pens&eacute;es sont d&eacute;j&agrave; ailleurs. Le mort est encore au centre &mdash; et d&eacute;j&agrave; seul.</span>
+                    <span data-lang="en">The widow is still &mdash; but her thoughts have already moved elsewhere. The dead man is still at the centre, and already alone.</span>
+                    <span data-lang="ru">Вдова неподвижна &mdash; но мысли её уже не здесь. Покойник всё ещё в центре &mdash; и уже один.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CUE I.2 -->
+        <div class="cue">
+            <div class="cue-meta">I.2</div>
+            <div class="cue-body">
+                <h4>
+                    <span data-lang="fr" class="active">Le cort&egrave;ge se forme &mdash; Inception&rsquo;s Breath</span>
+                    <span data-lang="en">The Procession Forms &mdash; Inception&rsquo;s Breath</span>
+                    <span data-lang="ru">Процессия выстраивается &mdash; Inception&rsquo;s Breath</span>
+                </h4>
+                <blockquote>
+                    <span data-lang="fr" class="active">Le cort&egrave;ge ne parvenait pas &agrave; se former dans l&rsquo;ordre convenable. Ceux qui n&rsquo;avaient pas envie d&rsquo;aller au cimeti&egrave;re s&rsquo;&eacute;clipsaient en silence. Le corbillard, ses panaches oscillants, s&rsquo;&eacute;loigna.</span>
+                    <span data-lang="en">The procession could not arrange itself in the proper order. Those who had no wish to ride to the cemetery quietly slipped away. The hearse, its plumes swaying, moved off.</span>
+                    <span data-lang="ru">Процессия долго не могла выстроиться в надлежащем порядке. Те, кому не хотелось ехать на кладбище, незаметно ушли. Катафалк с колышущимися султанами отъехал.</span>
+                </blockquote>
+                <div class="cue-tech">Track 1 &middot; D minor &middot; 129 BPM &middot; 4:08</div>
+                <audio controls preload="none" src="audio/track-01.mp3"></audio>
+                <div class="cue-note">
+                    <span data-lang="fr" class="active">Premier pas apr&egrave;s la mort: la machine sociale se met en marche, mais mal &mdash; comme la procession qui peine &agrave; se former.</span>
+                    <span data-lang="en">The first steps after death: the social machine starts up, but badly &mdash; like a procession struggling to form.</span>
+                    <span data-lang="ru">Первые шаги после смерти: социальный механизм запускается, но криво &mdash; как процессия, которая никак не выстроится.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CUE I.3 -->
+        <div class="cue">
+            <div class="cue-meta">I.3</div>
+            <div class="cue-body">
+                <h4>
+                    <span data-lang="fr" class="active">Vers le Bois de Boulogne &mdash; Architect of Power</span>
+                    <span data-lang="en">Toward the Bois de Boulogne &mdash; Architect of Power</span>
+                    <span data-lang="ru">К Булонскому лесу &mdash; Architect of Power</span>
+                </h4>
+                <blockquote>
+                    <span data-lang="fr" class="active">On aurait dit qu&rsquo;on fl&acirc;nait dans Paris au printemps, en route pour le Bois de Boulogne. Le corbillard n&rsquo;&eacute;tait plus en vue, et personne ne pensait plus au d&eacute;funt. Les conversations s&rsquo;engageaient. Les dames parlaient des prochaines saisons d&rsquo;&eacute;t&eacute;, les hommes de leurs affaires.</span>
+                    <span data-lang="en">One might have thought it was a leisurely stroll through spring Paris, on the way to the Bois de Boulogne. The hearse was no longer in sight, and no one was thinking of the deceased anymore. Conversations began. The ladies spoke of the coming summer season, the gentlemen of their business.</span>
+                    <span data-lang="ru">Можно было вообразить, что не спеша по весеннему Парижу кортеж направлялся в Булонский лес. Катафалка не было видно, и никто уже не думал о покойном. Завязывались разговоры. Дамы беседовали о предстоящих летних сезонах, мужчины &mdash; о делах.</span>
+                </blockquote>
+                <div class="cue-tech">Track 3 &middot; G#&nbsp;minor &middot; 123 BPM &middot; 1:46</div>
+                <audio controls preload="none" src="audio/track-03.mp3"></audio>
+                <div class="cue-note">
+                    <span data-lang="fr" class="active">Le morceau le plus aigu de la partition devient ici la fausse gaiet&eacute; du printemps parisien &mdash; bavardage mondain au-dessus du d&eacute;funt d&eacute;j&agrave; oubli&eacute;.</span>
+                    <span data-lang="en">The brightest cue in the score becomes the false cheer of springtime Paris &mdash; society chatter above a dead man already forgotten.</span>
+                    <span data-lang="ru">Самый яркий по тембру трек партитуры обращается здесь в фальшивую весеннюю радость Парижа &mdash; светская болтовня над уже забытым покойником.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CUE I.4 -->
+        <div class="cue">
+            <div class="cue-meta">I.4</div>
+            <div class="cue-body">
+                <h4>
+                    <span data-lang="fr" class="active">Les fossoyeurs seuls &mdash; The Illusion of Control</span>
+                    <span data-lang="en">The Gravediggers Alone &mdash; The Illusion of Control</span>
+                    <span data-lang="ru">Могильщики одни &mdash; The Illusion of Control</span>
+                </h4>
+                <blockquote>
+                    <span data-lang="fr" class="active">Mais quand les discours eurent &eacute;t&eacute; prononc&eacute;s, les derniers mots dits, les pr&ecirc;tres eurent b&eacute;ni le corps et que tous se furent dispers&eacute;s &mdash; dans ce coin du monde s&eacute;par&eacute; de tout, il ne restait plus que les fossoyeurs. Ils descendirent le cercueil dans la terre. Les cordes frottaient avec un bruit sourd les bords de la tombe, et le cercueil gri&ccedil;ait.</span>
+                    <span data-lang="en">But when the speeches had been delivered, the last words spoken, the priests had blessed the body and everyone had dispersed &mdash; in this corner of the world cut off from all, only the gravediggers remained. They lowered the coffin into the earth. The ropes scraped with a dull sound against the edges of the grave, and the coffin creaked.</span>
+                    <span data-lang="ru">Но когда речи были произнесены, прозвучали последние слова, священники благословили тело и все разошлись &mdash; в этом отгороженном от мира уголке остались только могильщики. Они опустили гроб в землю. Верёвки тёрлись с глухим шорохом о края могилы, гроб скрипел.</span>
+                </blockquote>
+                <div class="cue-tech">Track 9 &middot; G minor &middot; 117 BPM &middot; 3:54</div>
+                <audio controls preload="none" src="audio/track-09.mp3"></audio>
+                <div class="cue-note">
+                    <span data-lang="fr" class="active">La mati&egrave;re-source du spectacle. Elle reviendra dans l&rsquo;acte II, contamin&eacute;e.</span>
+                    <span data-lang="en">The source material of the spectacle. It will return in Act II, contaminated.</span>
+                    <span data-lang="ru">Исходный материал спектакля. Он вернётся во втором акте, заражённый.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACT II HEADER -->
+        <div class="act-divider">
+            <span data-lang="fr" class="active">Deuxi&egrave;me acte &middot; Mode d&rsquo;emploi &mdash; comment tromper</span>
+            <span data-lang="en">Act Two &middot; Instructions &mdash; How to Deceive</span>
+            <span data-lang="ru">Второй акт &middot; Инструкция &mdash; как обманывать</span>
+        </div>
+
+        <!-- CUE II.1 -->
+        <div class="cue">
+            <div class="cue-meta">II.1</div>
+            <div class="cue-body">
+                <h4>
+                    <span data-lang="fr" class="active">Ils ont bris&eacute; la porte &mdash; Exploring the Might</span>
+                    <span data-lang="en">They Broke the Door &mdash; Exploring the Might</span>
+                    <span data-lang="ru">Они сломали дверь &mdash; Exploring the Might</span>
+                </h4>
+                <blockquote>
+                    <span data-lang="fr" class="active">La chambre s&rsquo;ouvre et fait &eacute;galement partie de l&rsquo;action. Avec les portes ferm&eacute;es, des ombres sont projet&eacute;es sur les murs. Les morts du premier acte reviennent.</span>
+                    <span data-lang="en">The room opens and becomes part of the action. With the doors closed, shadows are projected onto the walls. The dead of Act One return.</span>
+                    <span data-lang="ru">Комната раскрывается и становится частью действия. С закрытыми дверями тени проецируются на стены. Мёртвые первого акта возвращаются.</span>
+                </blockquote>
+                <div class="cue-tech">Track 2 &middot; C minor &middot; 123 BPM &middot; 5:06</div>
+                <audio controls preload="none" src="audio/track-02.mp3"></audio>
+                <div class="cue-note">
+                    <span data-lang="fr" class="active">Tonalit&eacute; de la r&eacute;surrection. Les morts reprennent le pouvoir sur l&rsquo;espace.</span>
+                    <span data-lang="en">The key of resurrection. The dead seize power over the space again.</span>
+                    <span data-lang="ru">Тональность воскрешения. Мёртвые снова захватывают власть над пространством.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CUE II.2 -->
+        <div class="cue">
+            <div class="cue-meta">II.2</div>
+            <div class="cue-body">
+                <h4>
+                    <span data-lang="fr" class="active">La location d&rsquo;un logement &mdash; Divining the Synchronicity</span>
+                    <span data-lang="en">Renting an Apartment &mdash; Divining the Synchronicity</span>
+                    <span data-lang="ru">Съём жилья &mdash; Divining the Synchronicity</span>
+                </h4>
+                <blockquote>
+                    <span data-lang="fr" class="active">Premi&egrave;re instruction sur comment tromper: choisir l&rsquo;immeuble. Octave lit la maison comme une partition &mdash; qui habite o&ugrave;, qui doit &agrave; qui, o&ugrave; sont les fissures.</span>
+                    <span data-lang="en">First instruction on how to deceive: choose the building. Octave reads the house like a score &mdash; who lives where, who owes whom, where the cracks are.</span>
+                    <span data-lang="ru">Первая инструкция о том, как обманывать: выбрать дом. Октав читает здание как партитуру &mdash; кто где живёт, кто кому должен, где трещины.</span>
+                </blockquote>
+                <div class="cue-tech">Track 5 &middot; E major &middot; 92 BPM &middot; 3:56</div>
+                <audio controls preload="none" src="audio/track-05.mp3"></audio>
+                <div class="cue-note">
+                    <span data-lang="fr" class="active">Mi majeur, l&rsquo;&eacute;clat de la fa&ccedil;ade bourgeoise. Tempo lent: pas de reconnaissance, regard qui calcule.</span>
+                    <span data-lang="en">E major, the bourgeois facade&rsquo;s sheen. Slow tempo: steps of reconnaissance, a calculating gaze.</span>
+                    <span data-lang="ru">Ми мажор &mdash; блеск буржуазного фасада. Медленный темп: шаги разведки, оценивающий взгляд.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CUE II.3 -->
+        <div class="cue">
+            <div class="cue-meta">II.3</div>
+            <div class="cue-body">
+                <h4>
+                    <span data-lang="fr" class="active">La rencontre avec une femme mari&eacute;e &mdash; Breaking the Rules</span>
+                    <span data-lang="en">The Encounter with a Married Woman &mdash; Breaking the Rules</span>
+                    <span data-lang="ru">Встреча с замужней женщиной &mdash; Breaking the Rules</span>
+                </h4>
+                <blockquote>
+                    <span data-lang="fr" class="active">D&eacute;sormais, chaque fois qu&rsquo;il passait, Marie souriait et rougissait. Lilith, assise en chemise sur la table de la salle &agrave; manger.</span>
+                    <span data-lang="en">From then on, each time he passed, Marie smiled and blushed. Lilith, sitting in her shift on the dining-room table.</span>
+                    <span data-lang="ru">Отныне, каждый раз когда он проходил, Мари улыбалась и краснела. Лилит, сидящая в рубашке на обеденном столе.</span>
+                </blockquote>
+                <div class="cue-tech">Track 7 &middot; F major &middot; 89 BPM &middot; 4:01</div>
+                <audio controls preload="none" src="audio/track-07.mp3"></audio>
+                <div class="cue-note">
+                    <span data-lang="fr" class="active">Tempo le plus lent de la partition. Fa majeur pastoral, utilis&eacute; &agrave; contre-emploi pour la transgression.</span>
+                    <span data-lang="en">The slowest tempo in the score. Pastoral F major used against type for transgression.</span>
+                    <span data-lang="ru">Самый медленный темп партитуры. Пасторальный фа мажор, использованный вразрез &mdash; для нарушения правил.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CUE II.4 -->
+        <div class="cue">
+            <div class="cue-meta">II.4</div>
+            <div class="cue-body">
+                <h4>
+                    <span data-lang="fr" class="active">Sc&egrave;ne &agrave; la table &mdash; The Game of Majesty</span>
+                    <span data-lang="en">The Table Scene &mdash; The Game of Majesty</span>
+                    <span data-lang="ru">Сцена за столом &mdash; The Game of Majesty</span>
+                </h4>
+                <blockquote>
+                    <span data-lang="fr" class="active">Le d&icirc;ner bourgeois. Les parasites sont r&eacute;unis. Chacun porte le masque de la respectabilit&eacute; comme on porte l&rsquo;habit.</span>
+                    <span data-lang="en">The bourgeois dinner. The parasites gather. Each wears the mask of respectability as one wears a suit.</span>
+                    <span data-lang="ru">Буржуазный ужин. Паразиты собрались вместе. Каждый носит маску приличия как костюм.</span>
+                </blockquote>
+                <div class="cue-tech">Track 6 &middot; C#&nbsp;minor &middot; 161 BPM &middot; 5:12</div>
+                <audio controls preload="none" src="audio/track-06.mp3"></audio>
+                <div class="cue-note">
+                    <span data-lang="fr" class="active">Le tempo le plus rapide. Bavardage, couverts, danse sociale sur fond de tension en do di&egrave;se mineur.</span>
+                    <span data-lang="en">The fastest tempo. Chatter, cutlery, a social dance above the tension of C# minor.</span>
+                    <span data-lang="ru">Самый быстрый темп. Болтовня, приборы, социальный танец поверх напряжения до-диез минора.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CUE II.5 -->
+        <div class="cue">
+            <div class="cue-meta">II.5</div>
+            <div class="cue-body">
+                <h4>
+                    <span data-lang="fr" class="active">Sc&egrave;ne au lit &mdash; Love.exe</span>
+                    <span data-lang="en">The Bed Scene &mdash; Love.exe</span>
+                    <span data-lang="ru">Сцена в постели &mdash; Love.exe</span>
+                </h4>
+                <blockquote>
+                    <span data-lang="fr" class="active">Des corps enlac&eacute;s. Amour.exe. L&rsquo;amour comme fonction, le d&eacute;sir comme instruction.</span>
+                    <span data-lang="en">Entangled bodies. Love.exe. Love as a function, desire as an instruction.</span>
+                    <span data-lang="ru">Переплетённые тела. Love.exe. Любовь как функция, желание как инструкция.</span>
+                </blockquote>
+                <div class="cue-tech">Track 8 &middot; A minor &middot; 144 BPM &middot; 4:43</div>
+                <audio controls preload="none" src="audio/track-08.mp3"></audio>
+                <div class="cue-note">
+                    <span data-lang="fr" class="active">Le fichier audio porte le sous-titre &laquo;&nbsp;Unease&nbsp;&raquo;. Ce n&rsquo;est pas l&rsquo;amour romantique &mdash; c&rsquo;est le programme qui tourne, avec des erreurs.</span>
+                    <span data-lang="en">The audio file carries the subtitle &ldquo;Unease&rdquo;. Not romantic love &mdash; a program running, with errors.</span>
+                    <span data-lang="ru">Аудиофайл подписан &laquo;Unease&raquo;. Это не романтическая любовь &mdash; это программа, которая крутится с ошибками.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CUE II.6 — SILENCE -->
+        <div class="cue cue-silence">
+            <div class="cue-meta">II.6</div>
+            <div class="cue-body">
+                <h4>
+                    <span data-lang="fr" class="active">Les inserts documentaires &mdash; Silence</span>
+                    <span data-lang="en">Documentary Inserts &mdash; Silence</span>
+                    <span data-lang="ru">Документальные вставки &mdash; Тишина</span>
+                </h4>
+                <blockquote>
+                    <span data-lang="fr" class="active">Mari tr&egrave;s modeste dans son manteau de laine sombre raconte que son mari est rentr&eacute; chez lui malade. Elle parle des prix de la viande qui deviennent bient&ocirc;t inaccessibles.</span>
+                    <span data-lang="en">A very modest wife in her dark wool coat tells how her husband came home sick. She speaks of meat prices that will soon become unreachable.</span>
+                    <span data-lang="ru">Очень скромная жена в тёмном шерстяном пальто рассказывает, что муж вернулся домой больным. Она говорит о ценах на мясо, которые скоро станут недосягаемыми.</span>
+                </blockquote>
+                <div class="cue-tech">
+                    <span data-lang="fr" class="active">Pas de musique &middot; voix seule</span>
+                    <span data-lang="en">No music &middot; voice alone</span>
+                    <span data-lang="ru">Без музыки &middot; только голос</span>
+                </div>
+                <div class="cue-note">
+                    <span data-lang="fr" class="active">L&rsquo;absence de musique est un rep&egrave;re dramaturgique, non un oubli. Le r&eacute;el perce le spectacle.</span>
+                    <span data-lang="en">The absence of music is a dramaturgical mark, not an omission. The real pierces the spectacle.</span>
+                    <span data-lang="ru">Отсутствие музыки &mdash; драматургический знак, не пропуск. Реальность пробивает спектакль.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CUE II.7 -->
+        <div class="cue">
+            <div class="cue-meta">II.7</div>
+            <div class="cue-body">
+                <h4>
+                    <span data-lang="fr" class="active">La musique (5&egrave;me partie) &mdash; Multi-Self</span>
+                    <span data-lang="en">The Music (Fifth Part) &mdash; Multi-Self</span>
+                    <span data-lang="ru">Музыка (пятая часть) &mdash; Multi-Self</span>
+                </h4>
+                <blockquote>
+                    <span data-lang="fr" class="active">Cinqui&egrave;me partie: la musique. Octave doit toucher ses cheveux avec ses l&egrave;vres. Bien que leur liaison se poursuive, ils ne se disent toujours pas&hellip;</span>
+                    <span data-lang="en">Fifth part: the music. Octave must touch her hair with his lips. Though their affair continues, they still do not speak&hellip;</span>
+                    <span data-lang="ru">Пятая часть: музыка. Октав должен коснуться её волос губами. Хотя их связь длится, они всё ещё не разговаривают&hellip;</span>
+                </blockquote>
+                <div class="cue-tech">Track 10 &middot; E minor &middot; 96 BPM &middot; 6:13</div>
+                <audio controls preload="none" src="audio/track-10.mp3"></audio>
+                <div class="cue-note">
+                    <span data-lang="fr" class="active">Le c&oelig;ur du deuxi&egrave;me acte. Le temps se dissout. Laisser respirer les six minutes enti&egrave;res, presque sans mouvement.</span>
+                    <span data-lang="en">The heart of Act Two. Time dissolves. Let the full six minutes breathe, almost without movement.</span>
+                    <span data-lang="ru">Сердце второго акта. Время растворяется. Дать дышать все шесть минут, почти без движения.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CUE II.8 -->
+        <div class="cue">
+            <div class="cue-meta">II.8</div>
+            <div class="cue-body">
+                <h4>
+                    <span data-lang="fr" class="active">Comment s&rsquo;asseoir sur le cou de l&rsquo;&Eacute;tat &mdash; reprise de I.4</span>
+                    <span data-lang="en">How to Sit on the Neck of the State &mdash; reprise of I.4</span>
+                    <span data-lang="ru">Как сесть на шею государству &mdash; реприза I.4</span>
+                </h4>
+                <blockquote>
+                    <span data-lang="fr" class="active">La figure de l&rsquo;araign&eacute;e. Le parasitisme rendu visible. La m&ecirc;me mati&egrave;re que les fossoyeurs, mais d&eacute;mont&eacute;e et remont&eacute;e en d&eacute;calage.</span>
+                    <span data-lang="en">The spider figure. Parasitism made visible. The same material as the gravediggers, taken apart and reassembled off-kilter.</span>
+                    <span data-lang="ru">Фигура паука. Паразитизм, сделанный видимым. Та же материя, что у могильщиков, разобранная и пересобранная со сдвигом.</span>
+                </blockquote>
+                <div class="cue-tech">
+                    <span data-lang="fr" class="active">Track 9 (remix) &middot; G mineur &middot; polyrythmie &middot; d&eacute;tune</span>
+                    <span data-lang="en">Track 9 (remix) &middot; G minor &middot; polyrhythm &middot; detune</span>
+                    <span data-lang="ru">Track 9 (ремикс) &middot; соль минор &middot; полиритмия &middot; детюн</span>
+                </div>
+                <audio controls preload="none" src="audio/track-09.mp3"></audio>
+                <div class="cue-note">
+                    <span data-lang="fr" class="active">Ici le spectacle referme son anneau: ce qui enterrait devient ce qui parasite.</span>
+                    <span data-lang="en">Here the spectacle closes its ring: what buried becomes what feeds.</span>
+                    <span data-lang="ru">Здесь спектакль замыкает своё кольцо: то, что хоронило, становится тем, что паразитирует.</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CUE II.9 (FINAL) -->
+        <div class="cue">
+            <div class="cue-meta">FIN</div>
+            <div class="cue-body">
+                <h4>
+                    <span data-lang="fr" class="active">Homeless Go Home &mdash; The Last Observer</span>
+                    <span data-lang="en">Homeless Go Home &mdash; The Last Observer</span>
+                    <span data-lang="ru">Homeless Go Home &mdash; The Last Observer</span>
+                </h4>
+                <blockquote>
+                    <span data-lang="fr" class="active">Les fossoyeurs reviennent avec leurs pelles. Au-dessus d&rsquo;eux, sur le niveau sup&eacute;rieur, le sans-abri avec sa couronne. Il est le seul Fran&ccedil;ais. Il regarde.</span>
+                    <span data-lang="en">The gravediggers return with their shovels. Above them, on the upper level, the homeless man with his wreath. He is the only Frenchman. He watches.</span>
+                    <span data-lang="ru">Могильщики возвращаются с лопатами. Над ними, на верхнем уровне, бездомный с венком. Он единственный француз. Он смотрит.</span>
+                </blockquote>
+                <div class="cue-tech">Track 11 &middot; C major &middot; 117 BPM &middot; 6:44</div>
+                <audio controls preload="none" src="audio/track-11.mp3"></audio>
+                <div class="cue-note">
+                    <span data-lang="fr" class="active">Do majeur: sans di&egrave;se, sans b&eacute;mol &mdash; nu. Le morceau le plus long et le plus grave du spectacle. Le silence du sans-abri, enfin audible.</span>
+                    <span data-lang="en">C major: no sharps, no flats &mdash; bare. The longest and lowest-toned cue in the piece. The homeless man&rsquo;s silence, at last audible.</span>
+                    <span data-lang="ru">До мажор: без диезов, без бемолей &mdash; наг. Самый длинный и самый глубокий по тембру трек спектакля. Тишина бездомного, наконец слышимая.</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="divider"></div>
 
     <!-- ===================== STAGE DESIGN ===================== -->
 
